@@ -1,0 +1,27 @@
+***This is a quick tutorial on how to add the ISAAC_code to the PyCharm Community edition IDE, including all of its required libraries.***
+
+Downloads
+- Pycharm Community Edition link: (https://www.jetbrains.com/pycharm/download/?section=windows)
+- Python 3.11.0 (must be this verison of python to mitigate any version descrepancies) Link: (https://www.python.org/downloads/)
+
+steps
+1. Open PyCharm Community edition and create a new project and call it whatever you like. make sure that you take note of the location of the project file and that you create the environment using an virtual evironment. Also set the python version to 3.11.0.
+
+2. Once the project is created drag the ISAAC_code.py and requirements.txt file into the project file
+
+3. Drag and drop the roboclaw_3.py file to .venv\Lib\site-packages
+
+4. Open the terminal located in the botton left coner of the screen. The directory of the termial shell should begin with (.venv), if it does not begin with (.venv), close and reopen PyCharm and reopen the project file, set the python interpreter to "Python 3.11 ('project_name')" (located at the bottom right of the screen beside a button that looks like a lock) , and check the termial. 
+
+5. In the terminal type the phrase within the quotations " pip install -r requirements.txt " . This will install all the needed libraries for you to run and troubleshoot the program
+
+6. Test the progam by pressing the run or dubug button in the top right of the window. you should see a GUI with various buttons and a camera viewfinder.
+
+Important Note: if the program does not come up or the window is not responding check your bluetooth devices on your computer. one issue that the program has is, if a bluetooth device is connected (like headphones) to your computer it gets stuck in an endless loop due to the way it checks for the motor drivers and sensors on the COM ports. you will have to diconnect the bluetooth device (headphones) from your computer to use this program for now. 
+
+***please throughly comment any changes you make in the code as it is in on going development***
+
+if there is any trouble getting the program to work please contact Kyle Grogan (kgrogan2@uncc.edu)
+  
+
+
