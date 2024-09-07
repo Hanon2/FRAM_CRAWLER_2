@@ -64,9 +64,18 @@ def main ():
         if canWeSendTheStartingACK and not DEBUG_ENABLE:
             ser.write(MSG_Handler.starting_ACK)
             canWeSendTheStartingACK = False
-            data = ser.read(1)
+            data = ser.readline()
             if data:
                 MSG_Handler.parseMessages(data)
+            else:
+                print("Connection timed out")
+                break
+        #Run Stepper Logic
+        #Run Solenoid logic
+        #Run elcometer logic
+        #Run Servo logic
+
+
 
 
 def setCanWeSendTheStartingACK(x):

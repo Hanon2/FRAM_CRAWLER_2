@@ -21,6 +21,7 @@ Notes:
 """
 
 import main
+import binascii
 # Constants
 requestToConnect_CMD = 0xAA
 takeAMeasurement_CMD = 0x55
@@ -39,9 +40,16 @@ totalBytes = [
     Advanced_ACK
 ]
 def parseMessages(message):
-    if requestToConnect_CMD == message:
+    # Initial value for CRC computation
+    initial_crc = 0xFFFF
+
+    if requestToConnect_CMD == message[0]:
         main.setCanWeSendTheStartingACK(True)
-    elif takeAMeasurement_CMD == message:
-        print("Do the measurement logic")
-    elif get_position_CMD ==message:
+    elif takeAMeasurement_CMD == message[0]:
+        crc_value = binascii.crc_hqx(message[1:len(message)-2], initial_crc)
+        if message[len(message)-2] == crc_value:
+            print("Do the measurement logic")
+        else:
+            print("The CRC values don't match there is a miscommunication error")
+    elif get_position_CMD ==message[0]:
         print("Send the position")
