@@ -1,18 +1,77 @@
+"""
+main.py
+
+Description:
+    This file handles the following:
+    1- connection process to the control box
+    2- Reading/writing to the control box
+    3- Passing in the messages to the MSG_Handler.py file
+
+
+Author:
+    Mohamed Abdelmoneim
+
+Date:
+    09/07/2024
+
+Dependencies:
+    - pyserial: For serial communication
+    - MSG_Handler: Custom module for handling messages
+
+Configuration:
+    - DEBUG_ENABLE: Set to 1 to simulate input commands. Set to 0 for actual serial communication.
+Notes:
+    - N/A
+"""
 import serial
 import MSG_Handler
 FW_REV = 1.0
+DEBUG_ENABLE = 1
+# Configure the serial connection
+
+
 def main ():
+    global canWeSendTheStartingACK
+    canWeSendTheStartingACK = False
     print("DFT inspection system")
     print("FW Rev: ", FW_REV)
-    # Configure the serial connection
-    ser = serial.Serial(
-        port='COM3',  # Replace with the correct COM port
-        baudrate=115200,
-        timeout=None  # We need to wait here until we get the first Ack which is 0xAA
-    )
+    if not DEBUG_ENABLE:
+        ser = serial.Serial(
+            port='COM3',  # Replace with the correct COM port
+            baudrate=115200,
+            timeout=None,  # We need to wait here until we get the first Ack which is 0xAA
+        )
     while True:
-        data = ser.read(1)
+        if DEBUG_ENABLE:
+            try:
+                data = int(input ("Enter the command to simulate"
+                       "\n1-Take a measurement"
+                       "\n2- Get the current position of the roboclaw\n>>>"))
+            except Exception as e:
+                print(e)
+                data = False
+            if data!= 1 and data != 2:
+                data = False
+                print ("Wrong input Enter either 1 or 2")
+            else:
+                data = MSG_Handler.totalBytes[data]
+        else:
+            data = ser.read(1)
         if data:
+            if not DEBUG_ENABLE:
+                ser.timeout = 3
             MSG_Handler.parseMessages(data)
+        if canWeSendTheStartingACK and not DEBUG_ENABLE:
+            ser.write(MSG_Handler.starting_ACK)
+            canWeSendTheStartingACK = False
+            data = ser.read(1)
+            if data:
+                MSG_Handler.parseMessages(data)
+
+
+def setCanWeSendTheStartingACK(x):
+    global canWeSendTheStartingACK  # Declare that we're using the global variable
+    canWeSendTheStartingACK = x
+
 if __name__ == "__main__":
     main()
