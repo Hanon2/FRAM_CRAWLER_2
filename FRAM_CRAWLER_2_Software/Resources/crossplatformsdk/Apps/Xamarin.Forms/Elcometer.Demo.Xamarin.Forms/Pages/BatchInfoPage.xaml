@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Elcometer.Demo.Xamarin.Forms.Pages.BatchInfoPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ScrollView Grid.Row="2">
+        <Label
+            Margin="10"
+            FontFamily="monospace"
+            HorizontalOptions="Fill"
+            Text="{Binding BatchInfo}"
+            VerticalOptions="Start" />
+    </ScrollView>
+</ContentPage>

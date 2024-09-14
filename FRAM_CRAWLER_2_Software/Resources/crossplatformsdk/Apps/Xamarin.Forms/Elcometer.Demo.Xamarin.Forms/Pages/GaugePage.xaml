@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Elcometer.Demo.Xamarin.Forms.Pages.GaugePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button
+            Grid.Row="0"
+            Margin="10"
+            Command="{Binding DownloadBatchesCommand}"
+            HorizontalOptions="Center"
+            Text="Download Batches"
+            VerticalOptions="Fill"
+            WidthRequest="200" />
+
+        <BoxView Grid.Row="1" BackgroundColor="LightGray" />
+
+        <Label
+            Grid.Row="2"
+            Margin="10"
+            Text="Live measurements will appear below:" />
+
+        <ScrollView Grid.Row="3">
+            <Label
+                Margin="10"
+                FontFamily="monospace"
+                HorizontalOptions="Fill"
+                Text="{Binding LiveMeasurement}"
+                VerticalOptions="Start" />
+        </ScrollView>
+    </Grid>
+</ContentPage>

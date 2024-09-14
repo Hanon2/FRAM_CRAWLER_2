@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MAUI", "MAUI", "{7EC178D8-34AA-442F-A8E5-E55F63A46213}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elcometer.Demo.MAUI", "Apps\Elcometer.Demo.MAUI\Elcometer.Demo.MAUI.csproj", "{11F5A350-63BE-4F04-B146-00921C97BD66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11F5A350-63BE-4F04-B146-00921C97BD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11F5A350-63BE-4F04-B146-00921C97BD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11F5A350-63BE-4F04-B146-00921C97BD66}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{11F5A350-63BE-4F04-B146-00921C97BD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11F5A350-63BE-4F04-B146-00921C97BD66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11F5A350-63BE-4F04-B146-00921C97BD66}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{11F5A350-63BE-4F04-B146-00921C97BD66} = {7EC178D8-34AA-442F-A8E5-E55F63A46213}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7EE5DB3-F628-4297-A9BC-73CB8E395478}
+	EndGlobalSection
+EndGlobal
