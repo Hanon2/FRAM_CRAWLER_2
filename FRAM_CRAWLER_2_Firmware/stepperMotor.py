@@ -34,6 +34,7 @@ def initGPIOForMotors():
 
 
 def runStepperLogic(angle):
+    global motorDirection
     if motorDirection != motorDirections.noOperation:
         GPIO.output(DIR_PIN, motorDirection)  # Set the direction
         #Declare static variables that will retain their values each time the function gets called
@@ -58,6 +59,7 @@ def runStepperLogic(angle):
                 # Keep popping angles from the angles array, if we can't do it anymore then we finished everything
                 angle.pop(0)
             except Exception:
-                pass
+                global motorDirection
+                motorDirection = motorDirections.noOperation
             return True
 
