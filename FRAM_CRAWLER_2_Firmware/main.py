@@ -25,12 +25,18 @@ Notes:
 """
 import serial
 import MSG_Handler
+import binascii
+
 FW_REV = 1.0
 DEBUG_ENABLE = 1
+REGUlAR_ANGLES = [0,90,180,270,360]
+
 # Configure the serial connection
 
 
 def main ():
+    initial_crc = 0xFFFF
+    data = []
     global canWeSendTheStartingACK
     canWeSendTheStartingACK = False
     print("DFT inspection system")
@@ -44,20 +50,23 @@ def main ():
     while True:
         if DEBUG_ENABLE:
             try:
-                data = int(input ("Enter the command to simulate"
+                data[0] = (int(input ("Enter the command to simulate"
                        "\n1-Take a measurement"
-                       "\n2- Get the current position of the roboclaw\n>>>"))
+                       "\n2- Get the current position of the roboclaw\n>>>")))
             except Exception as e:
                 print(e)
-                data = False
-            if data!= 1 and data != 2:
-                data = False
+                data[0] = False
+            if data[0]!= 1 and data[0] != 2:
+                data[0] = False
                 print ("Wrong input Enter either 1 or 2")
             else:
-                data = MSG_Handler.totalBytes[data]
+                if 1 == data[0]:
+                    data[0] = MSG_Handler.totalBytes[data[0]]
+                    data.append(REGUlAR_ANGLES)
+                    data.append(binascii.crc_hqx(data[1:len(data) - 2], initial_crc)) #Simulate the CRC
         else:
-            data = ser.read(1)
-        if data:
+            data[0] = ser.read(1)
+        if data[0]:
             if not DEBUG_ENABLE:
                 ser.timeout = 3
             MSG_Handler.parseMessages(data)
