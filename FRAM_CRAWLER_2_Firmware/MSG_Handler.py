@@ -47,9 +47,18 @@ def parseMessages(message):
         main.setCanWeSendTheStartingACK(True)
     elif takeAMeasurement_CMD == message[0]:
         crc_value = binascii.crc_hqx(message[1:len(message)-2], initial_crc)
-        if message[len(message)-2] == crc_value:
-            print("Do the measurement logic")
+        if (message[len(message)-2]<<8 | message[len(message)-1]) == crc_value:
+            parseAngles(message[1:message[8]]) #The eight index includes how many angles we have
         else:
             print("The CRC values don't match there is a miscommunication error")
     elif get_position_CMD ==message[0]:
         print("Send the position")
+
+#We are using UART, so we need to provide
+def parseAngles(rawAngleData):
+    global REGUlAR_ANGLES
+    for i in range(rawAngleData):
+        try:
+            REGUlAR_ANGLES[i] = (rawAngleData[i] >> 8 | rawAngleData[i + 1])
+        except:
+            REGUlAR_ANGLES.append(rawAngleData[i] >> 8 | rawAngleData[i + 1])
