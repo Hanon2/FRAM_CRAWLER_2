@@ -29,8 +29,8 @@ import binascii
 import stepperMotor
 FW_REV = 1.0
 DEBUG_ENABLE = 1
-REGUlAR_ANGLES = [0,90,180,270,360]
-
+REGUlAR_ANGLES = []
+REGULAR_ANGLES_ENCODED = [0,0,0,90,0,180,1,7,1,104]
 # Configure the serial connection
 
 
@@ -62,7 +62,8 @@ def main ():
             else:
                 if 1 == data[0]:
                     data[0] = MSG_Handler.totalBytes[data[0]]
-                    data.append(REGUlAR_ANGLES)
+
+                    data.append(REGULAR_ANGLES_ENCODED)
                     data.append(binascii.crc_hqx(data[1:len(data) - 2], initial_crc)) #Simulate the CRC
         else:
             data[0] = ser.read(1)

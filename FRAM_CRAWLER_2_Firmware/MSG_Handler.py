@@ -22,6 +22,7 @@ Notes:
 
 import main
 import binascii
+import stepperMotor
 # Constants
 requestToConnect_CMD = 0xAA
 takeAMeasurement_CMD = 0x55
@@ -47,8 +48,14 @@ def parseMessages(message):
         main.setCanWeSendTheStartingACK(True)
     elif takeAMeasurement_CMD == message[0]:
         crc_value = binascii.crc_hqx(message[1:len(message)-2], initial_crc)
-        if (message[len(message)-2]<<8 | message[len(message)-1]) == crc_value:
-            parseAngles(message[1:message[8]]) #The eight index includes how many angles we have
+        numOfAnglesIDX = 0
+        for i in range(message):
+            if ((message[i] == 0) and (message[i+1]) == 0 and (i != 0)):
+                numOfAnglesIDX = message[i+2]
+                break
+        if (message[len(message)-2] | message[len(message)-1]) == crc_value:
+            parseAngles(message[1:numOfAnglesIDX])
+            stepperMotor.setMotorDir("forward")
         else:
             print("The CRC values don't match there is a miscommunication error")
     elif get_position_CMD ==message[0]:
