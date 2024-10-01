@@ -27,6 +27,7 @@ import serial
 import MSG_Handler
 import binascii
 import stepperMotor
+import servo
 FW_REV = 1.0
 DEBUG_ENABLE = 1
 REGUlAR_ANGLES = [0,90,180,270,360]
@@ -82,7 +83,7 @@ def main ():
         stepperMotor.runStepperLogic(REGUlAR_ANGLES)
         #Run Solenoid logic
         #Run elcometer logic
-        #Run Servo logic
+        servo.runServoLogic(REGUlAR_ANGLES)
 
 
 
