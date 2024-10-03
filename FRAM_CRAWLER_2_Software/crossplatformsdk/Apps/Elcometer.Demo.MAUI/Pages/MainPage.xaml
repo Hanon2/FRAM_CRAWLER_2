@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Elcometer.Demo.Xamarin.Forms.Pages.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Elcometer.Demo.Xamarin.Forms">
+
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" HorizontalOptions="Center">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                Margin="5,10"
+                Command="{Binding FindClassicGaugeCommand}"
+                FontSize="10"
+                HorizontalOptions="Center"
+                Text="Connect Bluetooth Classic"
+                VerticalOptions="Fill"
+                WidthRequest="170" />
+
+            <Button
+                Grid.Column="1"
+                Margin="5,10"
+                Command="{Binding FindLEGaugeCommand}"
+                FontSize="10"
+                HorizontalOptions="Center"
+                Text="Connect Bluetooth 5.0"
+                VerticalOptions="Fill"
+                WidthRequest="170" />
+
+        </Grid>
+
+        <BoxView Grid.Row="1" BackgroundColor="LightGray" />
+
+        <ListView
+            Grid.Row="2"
+            ItemsSource="{Binding Gauges}"
+            SelectedItem="{Binding SelectedGauge, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label
+                            Margin="4"
+                            FontSize="Medium"
+                            Text="{Binding DeviceInfo.Description}"
+                            VerticalTextAlignment="Center" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

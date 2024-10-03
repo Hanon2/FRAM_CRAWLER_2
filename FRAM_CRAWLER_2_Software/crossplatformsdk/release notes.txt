@@ -1,0 +1,11 @@
+# SDK Version 1.9
+
+Fixed issue with passkey pairing when using .Net Framework
+
+# SDK Version 1.8.1
+
+Fixed permissions issue with MAUI sample app for iOS
+
+# SDK Version 1.8
+
+Updated to support .Net 8
