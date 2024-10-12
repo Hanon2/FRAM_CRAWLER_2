@@ -1,0 +1,13 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Elcometer.Demo.Linux
+build_property.ProjectDir = /home/herodegon/FRAM_PROJ_ENV/.venv/FRAM_CRAWLER_2/FRAM_CRAWLER_2_Software/crossplatformsdk/Apps/Linux/Elcometer.Demo.Linux/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

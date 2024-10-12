@@ -10,7 +10,7 @@ namespace Elcometer.Demo.Linux
     internal class Program
     {
 		private const string DefaultGaugeDescripion = "Elcometer-456/4";
-		private const string DefaultDevice = "/dev/ttyACM0";
+		private const string DefaultDevice = "/dev/tty5";
 
 		private static void Main(string[] args)
         {
@@ -29,7 +29,7 @@ namespace Elcometer.Demo.Linux
 				Console.WriteLine("Usage:");
 				Console.WriteLine("Elcometer.Demo.Linux (description) (path)");
 				Console.WriteLine("e.g.:");
-				Console.WriteLine("Elcometer.Demo.Linux Elcometer-456/4 /dev/ttyACM0");
+				Console.WriteLine("Elcometer.Demo.Linux Elcometer-456/4 /dev/ttyS0");
 				Console.WriteLine("");
 				Console.WriteLine("Using default device and path.");
 			}
@@ -47,7 +47,7 @@ namespace Elcometer.Demo.Linux
                 Console.WriteLine($"Connecting to {gaugeType.Description} {serialNumber}...");
 
                 // initialise the connection
-                var gauge = ElcometerCore.Instance.GaugeService.Connect(device);
+                var gauge = ElcometerCore.Instance.GaugeService.Connect(device);      
 
                 // wait until batch download is available
                 UInt32 start = (UInt32)Environment.TickCount;

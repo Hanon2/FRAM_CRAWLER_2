@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "DxIqZk2wIyVZkF2OxBBi37fkdwX85Em8inu95ezUytJvw7123dvspNNK/VzFJwe+ijhfeKR0CYE5jBDVqyXfuQ==",
+  "success": true,
+  "projectFilePath": "/home/herodegon/FRAM_PROJ_ENV/.venv/FRAM_CRAWLER_2/FRAM_CRAWLER_2_Software/crossplatformsdk/Apps/Linux/Elcometer.Demo.Linux/Elcometer.Demo.Linux.csproj",
+  "expectedPackageFiles": [
+    "/home/herodegon/.nuget/packages/runtime.linux-arm.runtime.native.system.io.ports/6.0.0/runtime.linux-arm.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "/home/herodegon/.nuget/packages/runtime.linux-arm64.runtime.native.system.io.ports/6.0.0/runtime.linux-arm64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "/home/herodegon/.nuget/packages/runtime.linux-x64.runtime.native.system.io.ports/6.0.0/runtime.linux-x64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "/home/herodegon/.nuget/packages/runtime.native.system.io.ports/6.0.0/runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "/home/herodegon/.nuget/packages/runtime.osx-arm64.runtime.native.system.io.ports/6.0.0/runtime.osx-arm64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "/home/herodegon/.nuget/packages/runtime.osx-x64.runtime.native.system.io.ports/6.0.0/runtime.osx-x64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "/home/herodegon/.nuget/packages/system.io.ports/6.0.0/system.io.ports.6.0.0.nupkg.sha512",
+    "/home/herodegon/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.35/microsoft.netcore.app.host.linux-x64.6.0.35.nupkg.sha512"
+  ],
+  "logs": []
+}
