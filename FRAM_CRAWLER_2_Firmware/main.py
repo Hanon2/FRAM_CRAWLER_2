@@ -36,6 +36,7 @@ def main ():
 
    MSG_Glue.runMsgGlue()
    stepperMotor.runStepperLogic(REGUlAR_ANGLES)
+   servo.runServoLogic()
     #Run Solenoid logic
     #Run elcometer logic
     #Run Servo logic
