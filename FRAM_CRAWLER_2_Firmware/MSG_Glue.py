@@ -11,6 +11,7 @@ ser = serial.Serial(
     timeout=None  # Timeout for read/write operations
 )
 canWeRunReceival = True
+canWeRunTransmit = False
 def runMsgGlue():
     while (canWeRunReceival):
         data = ser.readline()
@@ -18,8 +19,14 @@ def runMsgGlue():
             dataToBeSent = MSG_Handler.parseMessages(data)
             if dataToBeSent:
                 ser.write(dataToBeSent)
-
+    if (canWeRunTransmit):
+        dataToBeSent = MSG_Handler.sendMessages()
+        if dataToBeSent:
+            ser.write(dataToBeSent)
 
 def setCanWeRunReceival(x):
     global canWeRunReceival
     canWeRunReceival = x
+def setCanWeRunTransmit(x):
+    global canWeRunTransmit
+    canWeRunTransmit = x

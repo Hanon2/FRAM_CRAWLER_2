@@ -27,26 +27,18 @@ import MSG_Glue
 import stepperMotor
 import servo
 FW_REV = 1.0
-REGUlAR_ANGLES = []
-REGULAR_ANGLES_ENCODED = [0,0,0,90,0,180,1,7,1,104]
+REGUlAR_ANGLES = [0,90,180,270,360]
 # Configure the serial connection
 
 
 def main ():
 
    MSG_Glue.runMsgGlue()
-   stepperMotor.runStepperLogic(REGUlAR_ANGLES)
-   servo.runServoLogic()
+   if ((stepperMotor.runStepperLogic(REGUlAR_ANGLES)) or (not servo.runServoLogic())):
+       MSG_Glue.setCanWeRunTransmit(True)
     #Run Solenoid logic
     #Run elcometer logic
-    #Run Servo logic
 
-
-
-
-def setCanWeSendTheStartingACK(x):
-    global canWeSendTheStartingACK  # Declare that we're using the global variable
-    canWeSendTheStartingACK = x
 
 if __name__ == "__main__":
     main()

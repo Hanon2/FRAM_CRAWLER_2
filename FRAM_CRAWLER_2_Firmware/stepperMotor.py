@@ -40,15 +40,12 @@ def runStepperLogic(angle):
         #Declare static variables that will retain their values each time the function gets called
 
         if not hasattr(runStepperLogic, "totalStepsToBeTravelled",):
-            runStepperLogic.totalStepsToBeTravelled = 0  # Initialize the static variable
-        if not hasattr(runStepperLogic, "stepsTravelled",):
-            runStepperLogic.stepsTravelled = 0  # Initialize the static variable
+            runStepperLogic.totalStepsToBeTravelled = angle[0]
 
-        runStepperLogic.totalStepsToBeTravelled = angle[0]
 
-        if runStepperLogic.stepsTravelled < runStepperLogic.totalStepsToBeTravelled:
+        if runStepperLogic.totalStepsToBeTravelled>0:
 
-            runStepperLogic.stepsTravelled+=1
+            runStepperLogic.totalStepsToBeTravelled-=1
             GPIO.output(STEP_PIN, GPIO.HIGH)
             time.sleep(DELAY_BETWEEN_STEPS)
             GPIO.output(STEP_PIN, GPIO.LOW)
@@ -57,8 +54,8 @@ def runStepperLogic(angle):
             try:
                 # Keep popping angles from the angles array, if we can't do it anymore then we finished everything
                 angle.pop(0)
+                runStepperLogic.totalStepsToBeTravelled = angle[0]
             except Exception:
                 global motorDirection
                 motorDirection = motorDirections.noOperation
                 return True
-

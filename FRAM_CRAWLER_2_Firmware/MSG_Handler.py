@@ -20,13 +20,14 @@ Notes:
     - This file is only a logic/Software file so it shouldn't have anything related to the HW in it.
 """
 
-import main
 import binascii
 import stepperMotor
 import MSG_Glue
+import servo
 # Commands coming from the control box
 requestToConnect_CMD    = 0xAA
 takeAMeasurement_CMD    = 0x55
+weAreUsingRegularAngles = 0x77
 move_camera_CMD         = 0xAC
 stop_camera_CMD         = 0xCC
 
@@ -42,11 +43,24 @@ def parseMessages(data):
     if requestToConnect_CMD == data:
         return requestToConnectReceived_ACK
     elif takeAMeasurement_CMD == data[0]:
-        anglesParser(data[1:])
+        if (not(weAreUsingRegularAngles == data[1])):
+            anglesParser(data[1:])
         if (data[len(data)-1] | data[len(data)-2])  == (binascii.crc_hqx(data, 0xFFFF)):
             stepperMotor.setMotorDir("forward")
             MSG_Glue.setCanWeRunReceival(False)
             return measurementsReceived_ACK
+    elif move_camera_CMD == data:
+        servo.setShouldWeRunServo(True)
+        return cameraIsNowMoving_ACK
+    elif stop_camera_CMD == data:
+        servo.shouldWeRunServo(False)
+        return cameraIsStopped_ACK
+
+
+def sendMessages():
+    if (not servo.runServoLogic()):
+        return cameraReachedTheMaxDegree
+    #TBD: Do the same thing for the stepper
 
 
 
@@ -60,4 +74,3 @@ def anglesParser(data):
             REGUlAR_ANGLES.append((data[i] << 8) | (data[i + 1] & 0xff))
         if i != 0 and data[i] == 0 and data[i + 1] == 0:
             break
-
