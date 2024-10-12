@@ -22,34 +22,42 @@ Notes:
 
 import main
 import binascii
-# Constants
-requestToConnect_CMD = 0xAA
-takeAMeasurement_CMD = 0x55
-get_position_CMD = 0x2A
-starting_ACK = 0x0B  # This is the ACK that the Pi will send after receiving the RQTC.
-intermediate_ACK = 0x0C  # This is the ACK that the Pi will be waiting for after sending the measurements.
-Advanced_ACK = 0xD5  # This is the ACK that the Pi will be waiting for after sending the PNG file.
+import stepperMotor
+import MSG_Glue
+# Commands coming from the control box
+requestToConnect_CMD    = 0xAA
+takeAMeasurement_CMD    = 0x55
+move_camera_CMD         = 0xAC
+stop_camera_CMD         = 0xCC
 
-# Combine the commands and ACKs into a 1D array (list)
-totalBytes = [
-    requestToConnect_CMD,
-    takeAMeasurement_CMD,
-    get_position_CMD,
-    starting_ACK,
-    intermediate_ACK,
-    Advanced_ACK
-]
-def parseMessages(message):
-    # Initial value for CRC computation
-    initial_crc = 0xFFFF
+#Messages sent to the control box
+requestToConnectReceived_ACK    = 0xBB
+measurementsReceived_ACK        = 0x66
+cameraIsNowMoving_ACK           = 0xBC
+cameraIsStopped_ACK             = 0xDC
+cameraReachedTheMaxDegree       = 0xEC
 
-    if requestToConnect_CMD == message[0]:
-        main.setCanWeSendTheStartingACK(True)
-    elif takeAMeasurement_CMD == message[0]:
-        crc_value = binascii.crc_hqx(message[1:len(message)-2], initial_crc)
-        if message[len(message)-2] == crc_value:
-            print("Do the measurement logic")
-        else:
-            print("The CRC values don't match there is a miscommunication error")
-    elif get_position_CMD ==message[0]:
-        print("Send the position")
+
+def parseMessages(data):
+    if requestToConnect_CMD == data:
+        return requestToConnectReceived_ACK
+    elif takeAMeasurement_CMD == data[0]:
+        anglesParser(data[1:])
+        if (data[len(data)-1] | data[len(data)-2])  == (binascii.crc_hqx(data, 0xFFFF)):
+            stepperMotor.setMotorDir("forward")
+            MSG_Glue.setCanWeRunReceival(False)
+            return measurementsReceived_ACK
+
+
+
+
+def anglesParser(data):
+    global REGUlAR_ANGLES
+    for i in range(0, len(data), 2):
+        try:
+            REGUlAR_ANGLES[i // 2] = (data[i] << 8) | (data[i + 1] & 0xff)
+        except IndexError:
+            REGUlAR_ANGLES.append((data[i] << 8) | (data[i + 1] & 0xff))
+        if i != 0 and data[i] == 0 and data[i + 1] == 0:
+            break
+

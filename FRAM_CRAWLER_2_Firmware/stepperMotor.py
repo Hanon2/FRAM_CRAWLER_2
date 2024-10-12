@@ -53,7 +53,6 @@ def runStepperLogic(angle):
             time.sleep(DELAY_BETWEEN_STEPS)
             GPIO.output(STEP_PIN, GPIO.LOW)
             time.sleep(DELAY_BETWEEN_STEPS)
-            return False
         else:
             try:
                 # Keep popping angles from the angles array, if we can't do it anymore then we finished everything
@@ -61,5 +60,5 @@ def runStepperLogic(angle):
             except Exception:
                 global motorDirection
                 motorDirection = motorDirections.noOperation
-            return True
+                return True
 
